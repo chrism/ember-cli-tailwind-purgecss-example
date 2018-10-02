@@ -1,10 +1,26 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const purgecss = require('@fullhuman/postcss-purgecss');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
+    postcssOptions: {
+      compile: {
+        enabled: false
+      },
+      filter: {
+        enabled: true,
+        plugins: [
+          {
+            module: purgecss,
+            options: {
+              content: ['./app/**/*.hbs', './app/**/.js']
+            }
+          }
+        ]
+      }
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
