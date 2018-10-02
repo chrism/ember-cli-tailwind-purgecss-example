@@ -1,2 +1,6 @@
 @import 'tailwind.css';
 
+.standard-css-class {
+  font-size: 3rem;
+  color: red;
+}
