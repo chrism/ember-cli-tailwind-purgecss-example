@@ -1,58 +1,46 @@
-# ember-cli-tailwind-purgecss-example
+# Ember CLI Tailwind Purgecss Example
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+A simple Ember application to understand how to add [purgecss](https://www.purgecss.com/) to a project using [ember-cli-tailwind](https://github.com/embermap/ember-cli-tailwind/).
 
-## Prerequisites
+Uses
 
-You will need the following things properly installed on your computer.
+- Ember 3.4.4
+- Ember Postcss 4.0.0
+- Ember CLI Tailwind 0.6.2
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/)
-* [Yarn](https://yarnpkg.com/)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+Tailwind works perfectly prior to installing
 
-## Installation
+- [@fullhuman/postcss-purgecss](https://github.com/FullHuman/postcss-purgecss)
+- [ember-cli-postcss](https://github.com/jeffjewiss/ember-cli-postcss)
 
-* `git clone <repository-url>` this repository
-* `cd ember-cli-tailwind-purgecss-example`
-* `yarn install`
+and adding this code to `ember-cli-build.js`
 
-## Running / Development
+```js
+module.exports = function(defaults) {
+  let app = new EmberApp(defaults, {
+    postcssOptions: {
+      compile: {
+        enabled: false
+      },
+      filter: {
+        enabled: true,
+        plugins: [
+          {
+            module: purgecss,
+            options: {
+              content: ['./app/**/*.hbs', './app/**/.js']
+            }
+          }
+        ]
+      }
+    }
+  });
+  return app.toTree();
+};
+```
 
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+Doing this results with no styling being kept and this error message in the console.
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `yarn lint:hbs`
-* `yarn lint:js`
-* `yarn lint:js --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+```
+Refused to apply style from 'http://localhost:4200/assets/ember-cli-tailwind-purgecss-example.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.
+```
