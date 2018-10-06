@@ -44,3 +44,9 @@ Doing this results with no styling being kept and this error message in the cons
 ```
 Refused to apply style from 'http://localhost:4200/assets/ember-cli-tailwind-purgecss-example.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled.
 ```
+
+It doesn't seem like that file gets generated.
+
+Something else—I've noticed is if I `ember build --environment=production` then all the JS files are generated separately, rather than compiled.
+
+Any help/suggestions much appreciated.
